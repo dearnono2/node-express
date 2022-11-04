@@ -49,3 +49,16 @@ app.post('/api/create', (req, res) => {
       res.json({ success: false })
     })
 })
+
+// read
+app.post('/api/read', (req, res) => {
+  Post.find()
+    .exec()
+    .then(doc => {
+      res.json({ success: true, communityList: doc })
+    })
+    .catch(err => {
+      console.log(err);
+      res.json({ success: false })
+    })
+})
