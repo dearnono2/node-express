@@ -4,11 +4,13 @@ import Main from './common/Main';
 import List from './community/List';
 import Create from './community/Create';
 import Detail from './community/Detail';
+import GlobalStyle from './GlobalStyle';
 
 function App() {
 
 	return (
 		<>
+			<GlobalStyle />
 			<Header />
 
 			<Routes>
