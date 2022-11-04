@@ -5,15 +5,11 @@ const app = express();
 const port = 5000;
 
 const { Post } = require('./model/postSchema.js');
-// 스키마모델을 불러오면 자동으로 mongoDB에 빈 컬렉션이 추가됨.
-// 카운터 컬렉션에 초기 데이터가 들어갈 첫 document를 몽고DB상에서 직접 생성.
-// {name: 'counter', communityNum: 1}
+
 const { Counter } = require('./model/counterSchema.js');
 
-//express에서 react안쪽 build폴더까지의 경로를 static으로 지정
 app.use(express.static(path.join(__dirname, '../react/build')));
 
-// 클라이언트에서 보내는 데이터를 받도록 설정 (body-parser)
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -39,19 +35,33 @@ app.get('*', (req, res) => {
 
 // create
 app.post('/api/create', (req, res) => {
-  console.log(req.body);
-  const PostModel = new Post({
-    title: req.body.title,
-    content: req.body.content
-  })
+  // Counter 모델로부터 CommunityNum값을 찾아서 프론트에서 전달받은 데이터에 추가.
+  // 이때 Counter모델에 findOne 메서드로 찾을 document의 조건 설정.
+  Counter.findOne({name: 'counter'})
+    .exec()
+    .then(doc => {
+      // 기존 프론트에서 받은 데이터에 방금 파라미터로 전달받은 document의 communityNum값을 추가 적용.
+      const PostModel = new Post({
+        title: req.body.title,
+        content: req.body.content,
+        communityNum: doc.communityNum,
+      });
 
-  PostModel.save()
-    .then(() => {
-      res.json({ success: true })
+      // 위에서 생성된 모델 인스턴스를 DB에 저장
+      PostModel.save()
+        .then(() => {
+          // 성공적으로 Post 모델이 저장되면 기존 카운터의 communityNum값을 1 증가해서 document 업데이트
+          // update에서 자주 쓰는 수정방식 3가지
+          // 1. $inc(기존값 증가), 2. dec(기존값 감소), 3. $set(새로운 값으로 변경)
+          Counter.updateOne({ name: 'counter' }, { $inc: { communityNum: 1 } })
+            .then(() => {
+              res.json({ success: true })
+            })
+        })
     })
-    .catch(err => {
-      res.json({ success: false })
-    })
+    .catch(err => console.log(err))
+
+
 })
 
 // read
