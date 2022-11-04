@@ -7,7 +7,7 @@ function List() {
   const [List, setList] = useState([]);
 
   useEffect(() => {
-    axios.post('/api/read')
+    axios.post('/api/community/read')
       .then(res => {
         if(res.data.success) {
           console.log(res.data.communityList);
