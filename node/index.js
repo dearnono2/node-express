@@ -4,7 +4,11 @@ const mongoose = require('mongoose');
 const app = express();
 const port = 5000;
 
-const { Post } = require('./model/postSchema.js')
+const { Post } = require('./model/postSchema.js');
+// 스키마모델을 불러오면 자동으로 mongoDB에 빈 컬렉션이 추가됨.
+// 카운터 컬렉션에 초기 데이터가 들어갈 첫 document를 몽고DB상에서 직접 생성.
+// {name: 'counter', communityNum: 1}
+const { Counter } = require('./model/counterSchema.js');
 
 //express에서 react안쪽 build폴더까지의 경로를 static으로 지정
 app.use(express.static(path.join(__dirname, '../react/build')));
