@@ -3,6 +3,7 @@ import Header from './common/Header';
 import Main from './common/Main';
 import List from './community/List';
 import Create from './community/Create';
+import Detail from './community/Detail';
 
 function App() {
 
@@ -14,6 +15,8 @@ function App() {
 				<Route path='/' element={<Main />} />
 				<Route path='/list' element={<List />} />
 				<Route path='/create' element={<Create />} />
+				{/* 라우터에 params 설정 */}
+				<Route path='/detail/:num' element={<Detail />} />
 			</Routes>
 		</>
 	);

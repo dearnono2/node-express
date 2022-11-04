@@ -76,3 +76,15 @@ app.post('/api/read', (req, res) => {
       res.json({ success: false })
     })
 })
+
+// detail
+app.post('/api/detail', (req, res) => {
+  Post.findOne({communityNum: req.body.num}).exec()
+    .then(doc => {
+      res.json({success: true, detail: doc});
+    })
+    .catch(err => {
+      console.log(err);
+      res.json({ success: false });
+    })
+})
