@@ -8,6 +8,7 @@ const GlobalStyle = createGlobalStyle`
   box-sizing: border-box;
 }
 
+
 ul,ol,li {
   list-style: none;
 }
@@ -15,6 +16,10 @@ ul,ol,li {
 a {
   text-decoration: none;
   color: #777;
+}
+
+body {
+  background: #efefef;
 }
 
 `;
