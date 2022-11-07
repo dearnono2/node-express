@@ -18,6 +18,7 @@ function Detail() {
   const navigate = useNavigate();
   const params = useParams();
   const [Detail, setDetail] = useState({});
+  const [Loaded, setLoaded] = useState(false);
 
   const item = {
     num: params.num
@@ -49,10 +50,14 @@ function Detail() {
       .catch(err => console.log(err));
   }, [])
 
+  useEffect(() => {
+    Object.keys(Detail).length !== 0 && setLoaded(true);
+  }, [Detail])
+
 
   return (
     <Layout name={'Detail'}>
-      {Detail && (
+      {Detail && Loaded ? (
         <>
           <DetailWrap>
             <h2>{Detail.title}</h2>
@@ -64,7 +69,10 @@ function Detail() {
             <button onClick={handleDelete}>Delete</button>
           </BtnSet>
         </>
-      )}
+      )
+        :
+        <p>Loading...</p>
+      }
     </Layout>
   );
 }
