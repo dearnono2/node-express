@@ -52,7 +52,8 @@ function Edit() {
   useEffect(() => {
     setTitle(Detail.title);
     setContent(Detail.content);
-    setLoaded(true);
+    //setLoaded(true);
+    Object.keys(Detail).length !== 0 && setLoaded(true);
   }, [Detail])
 
   return (
