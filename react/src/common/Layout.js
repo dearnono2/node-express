@@ -32,10 +32,14 @@ const MainWrap = styled.main`
       button {
         display: inline-block;
         padding: 5px 20px;
+        margin-right: 20px;
         background: #555;
         color: #fff;
         cursor: pointer;
         border: none;
+        a {
+          color: #fff;
+        }
       }
     }
   }
