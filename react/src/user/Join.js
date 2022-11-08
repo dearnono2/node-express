@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import firebase from '../firebase';
-import { loginUser } from '../redux/userSlice';
+import { logoutUser } from '../redux/userSlice';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 
@@ -32,12 +32,13 @@ function Join() {
       uid: createdUser.user.multiFactor.user.uid
     }
 
-    //서버쪽에 post요청 보내기
+    firebase.auth().signOut();
+    dispatch(logoutUser());
+
     axios.post('/api/user/join', item).then(res => {
       if (res.data.success) {
-        //회원가입에 성공하면 다시 전역 store의 로그인정보값을 변경해서 화면 재랜더링
-        //로그인시 header에 사용자 이름이 출력되지 않던 문제점 해결
-        dispatch(loginUser(createdUser.user))
+
+        alert('회원가입이 완료되었습니다.');
         navigate('/login');
       }
       else return alert('회원가입에 실패했습니다.')

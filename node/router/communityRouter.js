@@ -3,24 +3,31 @@ const router = express.Router();
 
 const { Post } = require('../model/postSchema.js');
 const { Counter } = require('../model/counterSchema.js');
+const { User } = require('../model/userSchema');
 
 //create
 router.post('/create', (req, res) => {
+  const temp = req.body;
+
   Counter.findOne({ name: 'counter' })
     .exec()
     .then(doc => {
-      const PostModel = new Post({
-        title: req.body.title,
-        content: req.body.content,
-        communityNum: doc.communityNum
-      });
+      temp.communityNum = doc.communityNum;
 
-      PostModel.save()
-        .then(() => {
-          Counter.updateOne({ name: 'counter' }, { $inc: { communityNum: 1 } })
-            .then(() => {
-              res.json({ success: true })
-            })
+      //현재 로그인된 사용자의 아이디로 User컬렉션으로부터 document를 찾고
+      User.findOne({ uid: temp.uid }).exec()
+        .then(doc => {
+          //해당 document의 object.id값을 bodyParser객체에 writer키값에 등록
+          temp.writer = doc._id;
+
+          //위에서 만들어진 최종 temp객체로 PostModel인스턴스 생서후 DB에 저장
+          const PostModel = new Post(temp);
+          PostModel.save().then(() => {
+            Counter.updateOne({ name: 'counter' }, { $inc: { communityNum: 1 } })
+              .then(() => {
+                res.json({ success: true })
+              })
+          })
         })
     })
     .catch(err => console.log(err))
