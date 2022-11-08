@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { User } = require('../model/userShema');
+const { User } = require('../model/userSchema');
 const { Counter } = require('../model/counterSchema');
 
 router.post('/join', (req, res) => {
@@ -15,7 +15,7 @@ router.post('/join', (req, res) => {
     userData.save()
       .then(() => {
         //카운터모델에서 userNum값을 1증가하고 성공응답
-        Counter.updateOne({ name: 'counter' }, { $inc: { userNume: 1 } })
+        Counter.updateOne({ name: 'counter' }, { $inc: { userNum: 1 } })
           .then(() => {
             res.json({ success: true })
           })
