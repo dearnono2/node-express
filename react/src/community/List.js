@@ -27,6 +27,10 @@ function List() {
       .finally(() => setLoaded(true));
   }, [])
 
+  useEffect(() => {
+    console.log(List);
+  }, [List])
+
   /*
   useEffect(() => {
     List.length !== 0 && setLoaded(true);
@@ -43,6 +47,8 @@ function List() {
                 {/* 글목록의 링크 URL, 글 고유번호를 params로 전달 */}
                 <Link to={`/detail/${post.communityNum}`}>{post.title}</Link>
               </h2>
+
+              <span>Writer: {post.writer.displayName}</span>
             </Item>
           )
         })) : <p>Loading...</p>

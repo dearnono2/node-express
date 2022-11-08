@@ -22,6 +22,7 @@ router.post('/create', (req, res) => {
 
           //위에서 만들어진 최종 temp객체로 PostModel인스턴스 생서후 DB에 저장
           const PostModel = new Post(temp);
+
           PostModel.save().then(() => {
             Counter.updateOne({ name: 'counter' }, { $inc: { communityNum: 1 } })
               .then(() => {
@@ -37,6 +38,7 @@ router.post('/create', (req, res) => {
 //read
 router.post('/read', (req, res) => {
   Post.find()
+    .populate('writer')
     .exec()
     .then(doc => {
       res.json({ success: true, communityList: doc })
@@ -49,7 +51,7 @@ router.post('/read', (req, res) => {
 
 //detail
 router.post('/detail', (req, res) => {
-  Post.findOne({ communityNum: req.body.num }).exec()
+  Post.findOne({ communityNum: req.body.num }).populate('writer').exec()
     .then(doc => {
       res.json({ success: true, detail: doc });
     })
