@@ -62,7 +62,6 @@ function Header() {
   const navigate = useNavigate();
   const activeStyle = { color: 'hotpink' };
   const user = useSelector(store => store.user);
-  console.log(user);
 
   return (
     <HeaderWrap>
