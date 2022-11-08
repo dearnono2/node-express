@@ -14,6 +14,9 @@ app.use(express.urlencoded({ extended: true }));
 // community 전용 라우터 연결
 app.use('/api/community', require('./router/communityRouter.js'));
 
+// user 전용 라우터 연결
+app.use('/api/user', require('./router/userRouter.js'));
+
 app.listen(port, () => {
   mongoose
     .connect('mongodb+srv://dearnono:qwert5@cluster0.mvtd51g.mongodb.net/?retryWrites=true&w=majority')
