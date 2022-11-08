@@ -2,10 +2,12 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 const HeaderWrap = styled.header`
-  width: 350px; height: 100vh;
+  width: 350px;
+  height: 100vh;
   background: #222;
   position: fixed;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   padding: 50px;
 `
 const Logo = styled.h1`
@@ -27,6 +29,20 @@ const Gnb = styled.ul`
   }
 `
 
+const Util = styled.ul`
+  position: absolute;
+  bottom: 50px;
+  left: 50px;
+  display: flex;
+  gap: 20px;
+  li {
+    a {
+      font: 14px/1 'arial';
+      color: #777;
+    }
+  }
+`
+
 function Header() {
   const activeStyle = { color: 'hotpink' };
 
@@ -44,6 +60,17 @@ function Header() {
           <NavLink to='/create' style={({ isActive }) => (isActive ? activeStyle : null)}>Write Post</NavLink>
         </li>
       </Gnb>
+
+      <Util>
+
+        <li>
+          <NavLink to='/login' style={({ isActive }) => (isActive ? activeStyle : null)}>Login</NavLink>
+        </li>
+        <li>
+          <NavLink to='/join' style={({ isActive }) => (isActive ? activeStyle : null)}>Join</NavLink>
+        </li>
+
+      </Util>
     </HeaderWrap>
   );
 }

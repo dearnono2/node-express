@@ -6,6 +6,8 @@ import Create from './community/Create';
 import Detail from './community/Detail';
 import Edit from './community/Edit';
 import GlobalStyle from './GlobalStyle';
+import Join from './user/Join';
+import Login from './user/Login';
 
 function App() {
 
@@ -21,6 +23,8 @@ function App() {
 				{/* 라우터에 params 설정 */}
 				<Route path='/detail/:num' element={<Detail />} />
 				<Route path='/edit/:num' element={<Edit />} />
+				<Route path='/join' element={<Join />} />
+				<Route path='/login' element={<Login />} />
 
 			</Routes>
 		</>
