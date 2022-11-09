@@ -69,8 +69,9 @@ router.get('/detail', (req, res) => {
     })
 });
 
-//edit
-router.put('/edit', (req, res) => {
+
+//update
+router.put('/update', (req, res) => {
   const temp = {
     title: req.body.title,
     content: req.body.content

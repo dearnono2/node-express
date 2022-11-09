@@ -68,7 +68,7 @@ function Detail() {
 
           {user.uid === Detail.writer.uid && (
             <BtnSet>
-              <button><Link to={`/edit/${Detail.communityNum}`}>Edit</Link></button>
+              <button><Link to={`/edit/${item.num}`}>Edit</Link></button>
               <button onClick={handleDelete}>Delete</button>
             </BtnSet>
           )}
