@@ -84,8 +84,8 @@ function Main() {
       .map((letter, idx) => `<span style='transform:rotate(${idx * 5.5}deg) translateY(-150px)'>${letter}</span>`)
       .join('');
 
-    const item = { count: 3 };
-    axios.get(`/api/community/read/?count=${item.count}`)
+    const item = { count: 3, sort: 'new' };
+    axios.get(`/api/community/read/?count=${item.count}&sort=${item.sort}`)
       .then(res => (res.data.success) && setList(res.data.communityList))
       .catch(err => console.log(err))
   }, [])

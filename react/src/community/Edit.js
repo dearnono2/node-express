@@ -40,7 +40,7 @@ function Edit() {
   useEffect(() => {
     const item = { num: params.num };
 
-    axios.get(`/api/community/detail/${item.num}`)
+    axios.get(`/api/community/detail/?num=${item.num}`)
       .then((res) => {
         if (res.data.success) {
           setDetail(res.data.detail);
