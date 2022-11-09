@@ -26,7 +26,6 @@ function Detail() {
   const item = {
     num: params.num
   }
-  console.log(item);
 
   const handleDelete = () => {
     if (!window.confirm('정말 삭제하겠습니다.')) return;
@@ -55,6 +54,7 @@ function Detail() {
 
   useEffect(() => {
     Object.keys(Detail).length !== 0 && setLoaded(true);
+    console.log(Detail)
   }, [Detail])
 
 
@@ -65,7 +65,7 @@ function Detail() {
           <DetailWrap>
             <h2>{Detail.title}</h2>
             <p>{Detail.content}</p>
-            <span>Writer: {Detail.writer.displayName}</span>
+            {Detail.createdAt === Detail.updatedAt ? <p>Posted: {Detail.createdAt.split('T')[0]}</p> : <p>Updated: {Detail.updatedAt.split('T')[0]}</p>}
           </DetailWrap>
 
           {user.uid === Detail.writer.uid && (

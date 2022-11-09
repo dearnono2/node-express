@@ -48,7 +48,9 @@ function List() {
                 <Link to={`/detail/${post.communityNum}`}>{post.title}</Link>
               </h2>
 
-              <span>Writer: {post.writer.displayName}</span>
+              <p>Writer: {post.writer.displayName}</p>
+              {post.createdAt === post.updatedAt ? <p>Posted: {post.createdAt.split('T')[0]}</p> : <p>Updated: {post.updatedAt.split('T')[0]}</p>}
+
             </Item>
           )
         })) : <p>Loading...</p>
