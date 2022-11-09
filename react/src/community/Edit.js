@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Layout from '../common/Layout';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
 
 const BtnSet = styled.div`
@@ -9,12 +10,14 @@ const BtnSet = styled.div`
 `
 
 function Edit() {
+  const user = useSelector(store => store.user);
   const navigate = useNavigate();
   const params = useParams();
   const [Detail, setDetail] = useState({});
   const [Title, setTitle] = useState('');
   const [Content, setContent] = useState('');
   const [Loaded, setLoaded] = useState(false);
+
 
   const handleUpdate = () => {
     if (Title.trim() === '' || Content.trim() === '') return alert('모든 항목을 입력하세요');
@@ -38,6 +41,7 @@ function Edit() {
   }
 
   useEffect(() => {
+    user.uid === '' && navigate('/');
     const item = { num: params.num };
 
     axios.get(`/api/community/detail/?num=${item.num}`)

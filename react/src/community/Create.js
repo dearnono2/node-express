@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Layout from '../common/Layout';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -25,6 +25,10 @@ function Create() {
       })
       .catch(err => console.log(err))
   }
+
+  useEffect(() => {
+    user.uid === '' && navigate('/');
+  }, [])
 
   return (
     <Layout name={'Post'}>

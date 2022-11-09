@@ -18,7 +18,6 @@ function App() {
 	useEffect(() => {
 		//firebase로 현재 auth상태변화를 감지해서 파라미터로 해당 상태값을 전달
 		firebase.auth().onAuthStateChanged((userInfo) => {
-			console.log('userInfo', userInfo);
 			if (userInfo === null) dispatch(logoutUser);
 			else dispatch(loginUser(userInfo.multiFactor.user))
 		})
@@ -39,6 +38,7 @@ function App() {
 				<Route path='/list' element={<List />} />
 				<Route path='/create' element={<Create />} />
 				<Route path='/detail/:num' element={<Detail />} />
+				<Route path='/edit' element={<Edit />} />
 				<Route path='/edit/:num' element={<Edit />} />
 				<Route path='/join' element={<Join />} />
 				<Route path='/login' element={<Login />} />
