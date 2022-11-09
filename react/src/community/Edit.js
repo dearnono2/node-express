@@ -25,7 +25,7 @@ function Edit() {
       num: params.num
     }
 
-    axios.post('/api/community/edit', item)
+    axios.put('/api/community/edit', item)
       .then(res => {
         if (res.data.success) {
           alert('글 수정이 완료되었습니다.');
@@ -40,7 +40,7 @@ function Edit() {
   useEffect(() => {
     const item = { num: params.num };
 
-    axios.post('/api/community/detail', item)
+    axios.get(`/api/community/detail/${item.num}`)
       .then((res) => {
         if (res.data.success) {
           setDetail(res.data.detail);
