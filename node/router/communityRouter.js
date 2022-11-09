@@ -37,8 +37,13 @@ router.post('/create', (req, res) => {
 
 //read
 router.post('/read', (req, res) => {
+  const sort = {};
+  if (req.body.sort === 'new') sort.createdAt = -1;
+  else sort.createdAt = 1;
+
   Post.find()
     .populate('writer')
+    .sort(sort)
     .exec()
     .then(doc => {
       res.json({ success: true, communityList: doc })
